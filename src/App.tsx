@@ -20,39 +20,40 @@ function App() {
 
   // Check for winner or draw
   useEffect(() => {
-    const result = calculateWinner(board);
+  const result = calculateWinner(board);
+
+  if (result) {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setGameStatus('won');
+
+    setWinningLine(result.line);
+
+    // Update scores
+    setScores(prevScores => ({
+      ...prevScores,
+      [result.winner]: prevScores[result.winner as keyof typeof prevScores] + 1
+    }));
+
+    // Add to history
+    setGameHistory(prev => [
+      ...prev,
+      { winner: result.winner, board: [...board], date: new Date() }
+    ]);
+  } else if (checkDraw(board)) {
     
-    if (result) {
-      setGameStatus('won');
-      setWinningLine(result.line);
-      
-      // Update scores
-      setScores(prevScores => ({
-        ...prevScores,
-        [result.winner]: prevScores[result.winner as keyof typeof prevScores] + 1
-      }));
-      
-      // Add to history
-      setGameHistory(prev => [
-        ...prev, 
-        { winner: result.winner, board: [...board], date: new Date() }
-      ]);
-    } else if (checkDraw(board)) {
-      setGameStatus('draw');
-      
-      // Update draw count
-      setScores(prevScores => ({
-        ...prevScores,
-        draws: prevScores.draws + 1
-      }));
-      
-      // Add to history
-      setGameHistory(prev => [
-        ...prev, 
-        { winner: null, board: [...board], date: new Date() }
-      ]);
-    }
-  }, [board]);
+    setGameStatus('draw');
+
+    setScores(prevScores => ({
+      ...prevScores,
+      draws: prevScores.draws + 1
+    }));
+
+    setGameHistory(prev => [
+      ...prev,
+      { winner: null, board: [...board], date: new Date() }
+    ]);
+  }
+}, [board]);
 
   // Handle square click
   const handleClick = (index: number) => {

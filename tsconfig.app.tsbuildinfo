@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/__tests__/gamelogic.test.ts","./src/components/board.tsx","./src/components/gamehistory.tsx","./src/components/scoreboard.tsx","./src/components/square.tsx","./src/utils/gamelogic.ts"],"version":"5.9.3"}
