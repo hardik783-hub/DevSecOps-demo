@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tic-tac-toe
-          image: ghcr.io/hardik783-hub/tic-tac-toe:latest
+          image: ghcr.io/hardik783-hub/devsecops-demo:sha-47c198030f20d50f2a922642eb5bdbd435aa4674
           # image will be always automatically updated by  CI/CD pipeline to latest version
           ports:
             - containerPort: 80
